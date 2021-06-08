@@ -18,7 +18,7 @@ bot.command('start', ctx => {
     msg += 'Bienvenido al bot de ayuda de la <strong>Suite Awat</strong>.\n';
     msg += 'Comandos disponibles:\n';
     msg += ' /awatsuite';
-    ctx.replyWithHTML(msg);    
+    ctx.replyWithHTML(msg); 
 })	
 
 bot.command('quit', (ctx) => {

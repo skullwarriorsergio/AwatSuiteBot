@@ -1,7 +1,7 @@
 //-----------Requires-----------
 var regvisor = require('./RegVisor/index');
 var chelp = require('./cHelp/index');
-const { Telegraf } = require('telegraf');
+const { Telegraf, Markup } = require('telegraf');
 //var bot=null;
 
 //-----------Code-----------
@@ -19,14 +19,15 @@ function Init(bot)
         chelp.ShowMenu(ctx);
     })
 }
-
+7
 function ShowMenu(bot,ctx)
 {
     let menuMSG = `Hola <b>${ctx.from.first_name}</b>\nSeleccione la aplicación de la suite para la cual desea obtener ayuda`;    
     ctx.replyWithHTML(menuMSG, {
         reply_markup: {
             inline_keyboard: [
-                [{
+                [                    
+                    {
                         text: "RegVisor",
                         callback_data: 'regvisor'
                     },
