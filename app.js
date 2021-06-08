@@ -1,8 +1,6 @@
+
 const { Telegraf } = require('telegraf')
 const fs = require('fs')
-const bot = new Telegraf('1885367070:AAF-u5HUHtOx2TwjUVYlbQsrWO9ltWHNEF8')
-
-
 
 bot.command('quit', (ctx) => {
   // Explicit usage
@@ -14,10 +12,10 @@ bot.command('quit', (ctx) => {
 
 bot.on('text', (ctx) => {
   // Explicit usage
-  ctx.telegram.sendMessage(ctx.message.chat.id, `Hello ${ctx.state.role}`)
+  //ctx.telegram.sendMessage(ctx.message.chat.id, 'Hello '+ ctx.state.role)
 
   // Using context shortcut
-  ctx.reply(`Hello ${ctx.state.role}`)
+  ctx.reply('Hello '+ ctx.state.role)
 })
 
 bot.on('callback_query', (ctx) => {
