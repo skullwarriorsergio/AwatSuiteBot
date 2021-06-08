@@ -1,0 +1,26 @@
+{
+  "name": "awatsuitebot",
+  "version": "1.0.0",
+  "description": "Helper bot for Awat Suite",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skullwarriorsergio/AwatSuiteBot.git"
+  },
+  "keywords": [
+    "awatsuite",
+    "bot"
+  ],
+  "author": "Sergio M. Pérez Mayo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skullwarriorsergio/AwatSuiteBot/issues"
+  },
+  "homepage": "https://github.com/skullwarriorsergio/AwatSuiteBot#readme",
+  "dependencies": {
+    "telegraf": "^4.3.0"
+  }
+}
