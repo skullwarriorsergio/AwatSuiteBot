@@ -1,6 +1,9 @@
 import { Telegraf } from 'telegraf'
+const fs = require('fs')
+require('dotenv')
+const bot = new Telegraf('1885367070:AAF-u5HUHtOx2TwjUVYlbQsrWO9ltWHNEF8')
 
-const bot = new Telegraf('AAF-u5HUHtOx2TwjUVYlbQsrWO9ltWHNEF8')
+
 
 bot.command('quit', (ctx) => {
   // Explicit usage
