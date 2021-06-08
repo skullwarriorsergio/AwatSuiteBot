@@ -1,6 +1,9 @@
 
 const { Telegraf } = require('telegraf')
 const fs = require('fs')
+const bot = new Telegraf('1885367070:AAF-u5HUHtOx2TwjUVYlbQsrWO9ltWHNEF8')
+
+
 
 bot.command('quit', (ctx) => {
   // Explicit usage
