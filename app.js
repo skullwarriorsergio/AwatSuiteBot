@@ -4,10 +4,18 @@ require('dotenv').config({path: __dirname + '/.env'});
 const { Telegraf } = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const fs = require('fs');
-const bot = new Telegraf(process.env['token'], {
+var bot = null;
+if (process.env['proxy'])
+{
+    bot = new Telegraf(process.env['token'], {
     telegram: {
       agent: new HttpsProxyAgent('http://127.0.0.1:51515')
     }});
+}
+else
+{
+    bot = new Telegraf(process.env['token']);
+}
 var menu=require('./modules/menu');
 bot.telegram.getMe().then((botInfo) => {
     bot.options.username = botInfo.username
