@@ -8,8 +8,11 @@ function Init(bot)
     //this.bot = bot;
 }
 function ShowMenu(ctx)
-{
-    ctx.reply('En desarrollo');
+{    
+    ctx.deleteMessage();
+    ctx.replyWithPhoto({source: './public/chelp.jpg'}).then(()=>{
+        ctx.reply('En desarrollo');
+    });
 }
 
 //-----------Exports-----------

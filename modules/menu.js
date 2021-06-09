@@ -22,7 +22,8 @@ function Init(bot)
 7
 function ShowMenu(bot,ctx)
 {
-    let menuMSG = `Hola <b>${ctx.from.first_name}</b>\nSeleccione la aplicación de la suite para la cual desea obtener ayuda`;    
+    ctx.deleteMessage(); 
+    let menuMSG = `Entendido, ahora selecciona la aplicación de la suite para la cual deseas obtener ayuda`;    
     ctx.replyWithHTML(menuMSG, {
         reply_markup: {
             inline_keyboard: [
