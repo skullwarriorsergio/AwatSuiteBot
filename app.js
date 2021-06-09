@@ -5,7 +5,7 @@ const { Telegraf } = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const fs = require('fs');
 var bot = null;
-if (process.env['proxy'])
+if (process.env['proxy'] == 'true')
 {
     bot = new Telegraf(process.env['token'], {
     telegram: {
