@@ -117,23 +117,27 @@ function ShowConfigMenu(ctx,menuMSG)
     ctx.replyWithHTML(menuMSG, {
         reply_markup: {
             inline_keyboard: [
-                [                    
-                    {                        
-                        text: "General",
-                        callback_data: 'config_general'
-                    },
-                    {
-                        text: "Interfaz",
-                        callback_data: 'config_interface'
-                    },
-                    {
-                        text: "Almacenamiento",
-                        callback_data: 'config_storage'
-                    },
-                    {
-                        text: "\u{1F448} atras",
-                        callback_data: 'config_back'
-                    }
+                [       
+                    [             
+                        {                        
+                            text: "General",
+                            callback_data: 'config_general'
+                        },
+                        {
+                            text: "Interfaz",
+                            callback_data: 'config_interface'
+                        }
+                    ],
+                    [
+                        {
+                            text: "Almacenamiento",
+                            callback_data: 'config_storage'
+                        },
+                        {
+                            text: "\u{1F448} atras",
+                            callback_data: 'config_back'
+                        }
+                    ]
                 ],
 
             ]
