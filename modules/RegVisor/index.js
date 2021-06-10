@@ -116,10 +116,10 @@ function ShowConfigMenu(ctx,menuMSG)
 {
     ctx.replyWithHTML(menuMSG, {
         reply_markup: {
-            inline_keyboard: [
-                [       
-                    [             
-                        {                        
+            inline_keyboard: 
+                [
+                    [
+                        {
                             text: "General",
                             callback_data: 'config_general'
                         },
@@ -135,12 +135,10 @@ function ShowConfigMenu(ctx,menuMSG)
                         },
                         {
                             text: "\u{1F448} atras",
-                            callback_data: 'config_back'
+                    callback_data: 'config_back'
                         }
                     ]
-                ],
-
-            ]
+                ]
         }
     })
 }
@@ -148,7 +146,8 @@ function ShowTopicsMenu(ctx,menuMSG)
 {
     ctx.replyWithHTML(menuMSG, {
         reply_markup: {
-            inline_keyboard: [
+            inline_keyboard:
+            [
                 [                    
                     {                        
                         text: "Importar",
@@ -161,17 +160,18 @@ function ShowTopicsMenu(ctx,menuMSG)
                     {
                         text: "Filtros",
                         callback_data: 'filter'
-                    },
+                    }
+                ],
+                [
                     {
                         text: "Extras",
                         callback_data: 'extras'
                     },
                     {
-                        text: "Config",
+                        text: "Configuración",
                         callback_data: 'config'
                     }
-                ],
-
+                ]
             ]
         }
     })
