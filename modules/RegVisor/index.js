@@ -17,15 +17,40 @@ function Init(bot)
     });
     
     bot.action('report', ctx => { // \u{1F4C3}
-        ctx.reply('en desarrollo');
+        let menuMSG = '►<strong>Reportes</strong>\n';
+        menuMSG += '  \tEn esta sección se inicia el asistente de reportes cuyas opciones dependen del tipo de servidor para el cual se procesan las trazas.\n';
+        menuMSG += '  \tLas opciones disponibles permiten una personalización del reporte medienta la aplicación de filtros, agrupamientos y clasificación de la información resultando en un reporte con un nivel detalles personalizado.\n';
+        menuMSG += '  \tLos reportes pueden imprimirse o exportarse a un PDF protegido para evitar adulteraciones de su contenido.\n\n';
+        menuMSG += '  \tLa generación del reporte puede ser genérica o personalizada:\n';
+        menuMSG += '  \t ◦ Genérica: Se genera el reporte con todas las opciones de filtro y clasificación por defecto.\n';
+        menuMSG += '  \t ◦ Personalizada: Se inicia el asistente de reportes el cual le brinda la posibilidad de definir las opciones del reporte.\n';
+
+        ctx.replyWithHTML(menuMSG).then(() => 
+        {
+            return ShowTopicsMenu(ctx);
+        });
     });
 
     bot.action('filter', ctx => { // \u{2049} 
-        ctx.reply('en desarrollo');
+        let menuMSG = '►<strong>Mostrar datos</strong>\n';
+        menuMSG += '  \tEn esta sección se muestran los datos importados con el nivel de detalle definido según el perfil seleccionado.\n';
+        menuMSG += '  \tAqui se puede acceder a distintas funcionalidades de filtrado y generar resúmenes parciales o específicos a un campo o valor.\n';
+
+        ctx.replyWithHTML(menuMSG).then(() => 
+        {
+            return ShowTopicsMenu(ctx);
+        });
     });
 
     bot.action('extras', ctx => { // \u{1F6D2} 
-        ctx.reply('en desarrollo');
+        let menuMSG = '►<strong>Extras</strong>\n';
+        menuMSG += '  \tEsta opción esta enfocada a funcionalidades extras solicitadas por usuarios.\n';
+        menuMSG += '  \tAqui se cuenta con un analizador de archivos de correo(.eml  .msg y archivos de datos de Outlook[.pst]) a través del cual se puede acceder a los correos enviados y recibidos contenidos en los mismos.\n';
+
+        ctx.replyWithHTML(menuMSG).then(() => 
+        {
+            return ShowTopicsMenu(ctx);
+        });
     });
 
     bot.action('config', ctx => {
@@ -59,7 +84,7 @@ function ShowTopicsMenu(ctx,menuMSG)
                         callback_data: 'report'
                     },
                     {
-                        text: "Filtros",
+                        text: "Mostrar datos",
                         callback_data: 'filter'
                     }
                 ],
