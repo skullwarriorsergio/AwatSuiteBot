@@ -20,6 +20,14 @@ bot.telegram.getMe().then((botInfo) => {
     bot.options.username = botInfo.username
   })
 menu.Init(bot);
+//-----Const-----
+const Extra = require('telegraf/extra')
+const Markup = require('telegraf/markup')
+const markup = Extra.markup(
+    Markup.inlineKeyboard([
+      Markup.urlButton('Grupo de Telegram', 'https://t.me/awatsuite')
+    ]));
+
 //-----------Code-----------
 
 bot.command('start', ctx => {      
@@ -116,6 +124,10 @@ function MainMenu(ctx)
                     {
                         text: "Iniciar asistente",
                         callback_data: 'showhelp'
+                    },
+                    {
+                        text: "Contacto",
+                        callback_data: 'contact'
                     }
                 ]
         ]}
@@ -125,6 +137,10 @@ function MainMenu(ctx)
 //-----others-----
 bot.action('showhelp', ctx => {
     menu.ShowMenu(bot, ctx)
+});
+bot.action('contact', ctx => {
+
+    ctx.replyWithHTML('Información de contacto',markup)
 });
 bot.on('callback_query', (ctx) => {
     ctx.answerCbQuery()
