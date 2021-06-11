@@ -1,4 +1,6 @@
 //-----------Requires-----------
+var configOption = require('./config');
+var importOption = require('./import');
 const { Telegraf } = require('telegraf');
 //var bot=null;
 
@@ -6,6 +8,8 @@ const { Telegraf } = require('telegraf');
 function Init(bot)
 {
     //this.bot = bot;
+    importOption.Init(bot);
+    configOption.Init(bot);
 
     bot.action('import', ctx => { // \u{2795}
         ctx.reply('en desarrollo');
@@ -30,28 +34,9 @@ function Init(bot)
 
     bot.action('config', ctx => {
         ctx.deleteMessage();
+        configOption.ShowMenu(ctx);
         Config(ctx);
     });
-    bot.action('config_general', ctx => {
-        ctx.deleteMessage();
-        ConfigGeneral(ctx);
-    });
-    bot.action('config_interface', ctx => {
-        ctx.deleteMessage();
-        ConfigInterface(ctx);
-    });
-    bot.action('config_storage', ctx => {
-        ctx.deleteMessage();
-        ConfigStorage(ctx);
-    });
-    bot.action('config_back', ctx => {
-        ctx.deleteMessage();
-        let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';
-        menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
-        ShowTopicsMenu(ctx,menuMSG)
-    });
-
-    
 }
 function ShowMenu(ctx)
 {    
@@ -63,12 +48,6 @@ function ShowMenu(ctx)
     });    
 }
 //-----functions-----
-function Config(ctx,menuMSG)
-{
-    menuMSG='\u{1F9F0} <strong>\tConfiguración</strong>\n';
-    menuMSG+='Seleccione la clasificación deseada\n';
-    ShowConfigMenu(ctx,menuMSG)
-}
 function ConfigGeneral(ctx)
 {
     let menuMSG = '►<strong>General</strong>\n';
@@ -112,36 +91,6 @@ function ConfigStorage(ctx)
     });
 }
 
-function ShowConfigMenu(ctx,menuMSG)
-{
-    ctx.replyWithHTML(menuMSG, {
-        reply_markup: {
-            inline_keyboard: 
-                [
-                    [
-                        {
-                            text: "General",
-                            callback_data: 'config_general'
-                        },
-                        {
-                            text: "Interfaz",
-                            callback_data: 'config_interface'
-                        }
-                    ],
-                    [
-                        {
-                            text: "Almacenamiento",
-                            callback_data: 'config_storage'
-                        },
-                        {
-                            text: "\u{1F448} atras",
-                    callback_data: 'config_back'
-                        }
-                    ]
-                ]
-        }
-    })
-}
 function ShowTopicsMenu(ctx,menuMSG)
 {
     ctx.replyWithHTML(menuMSG, {
