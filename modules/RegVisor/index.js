@@ -22,11 +22,12 @@ function Init(bot)
         menuMSG += '  \tLas opciones disponibles permiten una personalización del reporte medienta la aplicación de filtros, agrupamientos y clasificación de la información resultando en un reporte con un nivel detalles personalizado.\n';
         menuMSG += '  \tLos reportes pueden imprimirse o exportarse a un PDF protegido para evitar adulteraciones de su contenido.\n\n';
         menuMSG += '  \tLa generación del reporte puede ser genérica o personalizada:\n';
-        menuMSG += '  \t ◦ Genérica: Se genera el reporte con todas las opciones de filtro y clasificación por defecto.\n';
-        menuMSG += '  \t ◦ Personalizada: Se inicia el asistente de reportes el cual le brinda la posibilidad de definir las opciones del reporte.\n';
-
+        menuMSG += '  \t ◦ <b>Genérica</b>: Se genera el reporte con todas las opciones de filtro y clasificación por defecto.\n';
+        menuMSG += '  \t ◦ <b>Personalizada</b>: Se inicia el asistente de reportes el cual le brinda la posibilidad de definir las opciones del reporte.\n';
         ctx.replyWithHTML(menuMSG).then(() => 
         {
+            let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
+            menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
             return ShowTopicsMenu(ctx);
         });
     });
@@ -38,6 +39,8 @@ function Init(bot)
 
         ctx.replyWithHTML(menuMSG).then(() => 
         {
+            let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
+            menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
             return ShowTopicsMenu(ctx);
         });
     });
@@ -49,6 +52,8 @@ function Init(bot)
 
         ctx.replyWithHTML(menuMSG).then(() => 
         {
+            let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
+            menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
             return ShowTopicsMenu(ctx);
         });
     });
