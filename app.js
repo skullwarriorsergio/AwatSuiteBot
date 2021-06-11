@@ -1,6 +1,6 @@
 //-----------Requires-----------
 require('dotenv').config({path: __dirname + '/.env'});
-const { Telegraf } = require('telegraf');
+const { Telegraf, Markup } = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const fs = require('fs');
 var bot = null;
@@ -20,13 +20,23 @@ bot.telegram.getMe().then((botInfo) => {
     bot.options.username = botInfo.username
   })
 menu.Init(bot);
-//-----Const-----
-const Extra = require('telegraf/extra')
-const Markup = require('telegraf/markup')
-const markup = Extra.markup(
-    Markup.inlineKeyboard([
-      Markup.urlButton('Grupo de Telegram', 'https://t.me/awatsuite')
-    ]));
+//-----Contact Info-----
+const contactInfoExtra = Markup.inlineKeyboard([
+    [
+        Markup.button.url('\u{1F4AC} Grupo de Telegram', 'https://t.me/awatsuite')
+    ],
+    [
+        Markup.button.url('\u{1F30E} Facebook', 'https://www.facebook.com/awatsuite/'),
+        Markup.button.url('\u{1F30D} Linkedin', 'https://www.linkedin.com/company/awatsuite')
+    ],
+    [
+        Markup.button.url('\u{1F5C4} Google Drive', 'https://drive.google.com/drive/u/2/folders/1NAKi-0NR1CBeupyKmUpIyW3BOixJ5jOf'),        
+        Markup.button.url('\u{1F5C4} Mega', 'https://mega.nz/#F!VENU0QCL!SwEHRn4oZWSgHcNR-JpzPA')
+    ],
+    [
+        Markup.button.callback('\u{26D1} Iniciar asistente','showhelp')
+    ]
+  ]);
 
 //-----------Code-----------
 
@@ -117,16 +127,20 @@ bot.hears('awatsuite', ctx => {
 function MainMenu(ctx)
 {    
     let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.`;        
-    bot.telegram.sendMessage(ctx.from.id,privateMSG, {
+    MainManuButtons(ctx,privateMSG);
+}
+function MainManuButtons(ctx,menuMSG)
+{
+    bot.telegram.sendMessage(ctx.from.id,menuMSG, {
         reply_markup: {
             inline_keyboard: [
                 [                    
                     {
-                        text: "Iniciar asistente",
+                        text: "\u{26D1} Iniciar asistente",
                         callback_data: 'showhelp'
                     },
                     {
-                        text: "Contacto",
+                        text: "\u{1F4DE} Contacto",
                         callback_data: 'contact'
                     }
                 ]
@@ -139,8 +153,8 @@ bot.action('showhelp', ctx => {
     menu.ShowMenu(bot, ctx)
 });
 bot.action('contact', ctx => {
-
-    ctx.replyWithHTML('Información de contacto',markup)
+    ctx.deleteMessage();
+    ctx.replyWithHTML('Información de contacto y links de descarga de nuestra aplicación',contactInfoExtra);
 });
 bot.on('callback_query', (ctx) => {
     ctx.answerCbQuery()
