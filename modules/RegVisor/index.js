@@ -28,7 +28,7 @@ function Init(bot)
         {
             let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
             menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
-            return ShowTopicsMenu(ctx);
+            return ShowTopicsMenu(ctx, menuMSG);
         });
     });
 
@@ -41,7 +41,7 @@ function Init(bot)
         {
             let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
             menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
-            return ShowTopicsMenu(ctx);
+            return ShowTopicsMenu(ctx, menuMSG);
         });
     });
 
@@ -54,7 +54,7 @@ function Init(bot)
         {
             let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
             menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
-            return ShowTopicsMenu(ctx);
+            return ShowTopicsMenu(ctx, menuMSG);
         });
     });
 
