@@ -24,7 +24,7 @@ menu.Init(bot);
 const contactInfoExtra = Markup.inlineKeyboard([
     [
         Markup.button.url('\u{1F4AC} Grupo de Telegram', 'https://t.me/awatsuite'),
-        Markup.button.url('\u{1F4AC} Correo', 'mailto:awatsuite@gmail.com')
+        //Markup.button.url('\u{1F4AC} Correo', 'mailto:awatsuite@gmail.com')
     ],
     [
         Markup.button.url('\u{1F30E} Facebook', 'https://www.facebook.com/awatsuite/'),
@@ -143,7 +143,7 @@ function MainManuButtons(ctx,menuMSG)
                 ],
                 [                                      
                     {
-                        text: "\u{26D1} Opciones",
+                        text: "\u{1F6E0} Opciones",
                         callback_data: 'options'
                     },
                     {
@@ -180,7 +180,7 @@ bot.action('showhelp', ctx => {
 });
 bot.action('contact', ctx => {
     ctx.deleteMessage();
-    ctx.replyWithHTML('Información de contacto y links de descarga de nuestra aplicación',contactInfoExtra);
+    ctx.replyWithHTML('Información de contacto y links de descarga de nuestra aplicación.\n\t\u{1F4E7} Email: awatsuite@gmail.com',contactInfoExtra);
 });
 bot.on('callback_query', (ctx) => {
     ctx.answerCbQuery()
