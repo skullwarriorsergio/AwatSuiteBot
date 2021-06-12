@@ -158,7 +158,7 @@ function MainManuButtons(ctx,menuMSG)
 bot.action('options', ctx => {
     ctx.replyWithHTML('Opciones del asistente').then(() =>
     {
-        return bot.telegram.sendMessage(ctx.from.id,menuMSG, {
+        bot.telegram.sendMessage(ctx.from.id,'', {
             reply_markup: {
                 inline_keyboard: [
                     [
