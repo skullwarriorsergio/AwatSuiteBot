@@ -1,23 +1,26 @@
 //-----------Requires-----------
 var configOption = require('./config');
 var importOption = require('./import');
+var DeleteMSG = require('../deletemsg');
 const { Telegraf } = require('telegraf');
+var imgOptions =[];
 //var bot=null;
 
 //-----------Code-----------
-function Init(bot)
+function Init(bot, options)
 {
     //this.bot = bot;
-    importOption.Init(bot,ShowTopicsMenu);
-    configOption.Init(bot,ShowTopicsMenu);
+    imgOptions = options;
+    importOption.Init(bot, ShowTopicsMenu, options);
+    configOption.Init(bot, ShowTopicsMenu, options);
 
     bot.action('import', ctx => { // \u{2795}
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         importOption.ShowMenu(ctx);
     });
     
     bot.action('report', ctx => { // \u{1F4C3}
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         let menuMSG = '►<strong>Reportes</strong>\n';
         menuMSG += '  \tEn esta sección se inicia el asistente de reportes cuyas opciones dependen del tipo de servidor para el cual se procesan las trazas.\n';
         menuMSG += '  \tLas opciones disponibles permiten una personalización del reporte medienta la aplicación de filtros, agrupamientos y clasificación de la información resultando en un reporte con un nivel detalles personalizado.\n';
@@ -34,7 +37,7 @@ function Init(bot)
     });
 
     bot.action('filter', ctx => { // \u{2049} 
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         let menuMSG = '►<strong>Mostrar datos</strong>\n';
         menuMSG += '  \tEn esta sección se muestran los datos importados con el nivel de detalle definido según el perfil seleccionado.\n';
         menuMSG += '  \tAqui se puede acceder a distintas funcionalidades de filtrado y generar resúmenes parciales o específicos a un campo o valor.\n';
@@ -48,7 +51,7 @@ function Init(bot)
     });
 
     bot.action('extras', ctx => { // \u{1F6D2} 
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         let menuMSG = '►<strong>Extras</strong>\n';
         menuMSG += '  \tEsta opción esta enfocada a funcionalidades extras solicitadas por usuarios.\n';
         menuMSG += '  \tAqui se cuenta con un analizador de archivos de correo(.eml  .msg y archivos de datos de Outlook[.pst]) a través del cual se puede acceder a los correos enviados y recibidos contenidos en los mismos.\n';
@@ -62,13 +65,13 @@ function Init(bot)
     });
 
     bot.action('config', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         configOption.ShowMenu(ctx);
     });
 }
 function ShowMenu(ctx)
 {    
-    ctx.deleteMessage();
+    DeleteMSG(ctx);
     ctx.replyWithPhoto({source: './public/regvisor.jpg'}).then(()=>{
         let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';
         menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
@@ -92,7 +95,7 @@ function ShowTopicsMenu(ctx,menuMSG)
                         callback_data: 'report'
                     },
                     {
-                        text: "Mostrar datos",
+                        text: "Datos",
                         callback_data: 'filter'
                     }
                 ],

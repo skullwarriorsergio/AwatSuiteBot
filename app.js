@@ -16,11 +16,12 @@ else
 {
     bot = new Telegraf(process.env['token']);
 }
-var menu=require('./modules/menu');
+var menu = require('./modules/menu');
+var DeleteMSG = require('./modules/deletemsg');
 bot.telegram.getMe().then((botInfo) => {
     bot.options.username = botInfo.username
   })
-menu.Init(bot);
+menu.Init(bot, options);
 //-----Contact Info-----
 const contactInfoExtra = Markup.inlineKeyboard([
     [
@@ -68,6 +69,25 @@ function Welcome(ctx)
 }
 
 //-----commands-----
+bot.command('img', (ctx) => {
+    let tooglemsg = 'habilitado';
+    var found = options.find(function(el) {
+        return el.chatid === ctx.from.id;
+      });
+    if (found)
+    {
+        found.showpics =  !found.showpics;
+        tooglemsg = found.showpics ? 'habilitado' : 'deshabilitado';
+    }
+    else
+    {
+        options.push({
+            chatid: ctx.from.id, 
+            showpics:true
+        });
+    }
+    ctx.replyWithHTML(`Se han ${tooglemsg} las imágenes de ejemplo para [b]${ctx.from.first_name}[/b]`);
+});
 bot.command('quit', (ctx) => {
     try
     {
@@ -128,10 +148,10 @@ bot.hears('awatsuite', ctx => {
 //-----functions-----
 function MainMenu(ctx)
 {    
-    let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.`;        
-    MainManuButtons(ctx,privateMSG);
+    let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.`;
+    MainMenuButtons(ctx,privateMSG);
 }
-function MainManuButtons(ctx,menuMSG)
+function MainMenuButtons(ctx,menuMSG)
 {
     bot.telegram.sendMessage(ctx.from.id,menuMSG, {
         reply_markup: {
@@ -157,54 +177,58 @@ function MainManuButtons(ctx,menuMSG)
 }
 //-----Buttons-----
 bot.action('options', ctx => {
+    DeleteMSG(ctx);
     let showpics = false;
-    let menutext = "Mostrar imágenes de ejemplo";
-    if (options.some((opt) => opt.chatid === ctx.from.id))
+    let menutext = "\u{1F5BC} Mostrar imágenes de ejemplo";
+    var found = options.find(function(el) {
+        return el.chatid === ctx.from.id;
+      });
+    if (found)
     {
-        showpics =  opt.showpics 
+        showpics =  found.showpics 
     }
     else
     {
-        options.push(new {
+        options.push({
             chatid: ctx.from.id, 
             showpics:false
         });
     }
     if (showpics)
     {
-        menutext = "Ocultar imágenes de ejemplo";
+        menutext = "\u{1F6D1} Ocultar imágenes de ejemplo";
     }
-    ctx.replyWithHTML('Opciones del asistente').then(() =>
+    ctx.replyWithHTML('Opciones del asistente', 
     {
-        return ctx.replyWithHTML('', {
-            reply_markup: {
-                inline_keyboard: [
-                    [
-                        {
-                            text: menutext,
-                            callback_data: 'tooglePictures'
-                        }
-                    ],
-                    [
-                        {
-                            text: "\u{26D1} Iniciar asistente",
-                            callback_data: 'showhelp'
-                        },
-                        {
-                            text: "\u{1F4DE} Contacto",
-                            callback_data: 'contact'
-                        }
-                    ]
-            ]}
-        })
-    });;
+        reply_markup: {
+            inline_keyboard: [
+                [
+                    {
+                        text: menutext,
+                        callback_data: 'tooglePictures'
+                    }
+                ],
+                [
+                    {
+                        text: "\u{26D1} Iniciar asistente",
+                        callback_data: 'showhelp'
+                    },
+                    {
+                        text: "\u{1F4DE} Contacto",
+                        callback_data: 'contact'
+                    }
+                ]
+        ]}
+    })
 });
 bot.action('tooglePictures', ctx => {
-    ctx.deleteMessage();
-    var found = object.main.filter(function(el) {
+    DeleteMSG(ctx);
+    var found = options.find(function(el) {
         return el.chatid === ctx.from.id;
       });
-    menu.ShowMenu(bot, ctx)
+    found.showpics = !found.showpics;
+    let tooglemsg = found.showpics ? 'habilitado' : 'deshabilitado'
+    MainMenuButtons(ctx, `Excelente! ${ctx.from.first_name} has ${tooglemsg} las imagenes de ejemplo.\n Que deseas hacer a continuación?`);
 });
 bot.action('showhelp', ctx => {
     menu.ShowMenu(bot, ctx)

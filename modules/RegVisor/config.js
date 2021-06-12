@@ -1,25 +1,28 @@
 //-----------Requires-----------
 const { Telegraf } = require('telegraf');
+var DeleteMSG = require('../deletemsg');
+var imgOptions =[];
 //var bot=null;
 
 //-----------Code-----------
-function Init(bot, backfunction)
+function Init(bot, backfunction, options)
 {
+    imgOptions = options;
     //this.bot = bot;
     bot.action('config_general', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         ConfigGeneral(ctx);
     });
     bot.action('config_interface', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         ConfigInterface(ctx);
     });
     bot.action('config_storage', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         ConfigStorage(ctx);
     });
     bot.action('config_back', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';
         menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
         backfunction(ctx,menuMSG)
@@ -29,16 +32,30 @@ function Init(bot, backfunction)
 //-----Functions-----
 function ConfigGeneral(ctx)
 {
-    let menuMSG = '►<strong>General</strong>\n';
-    menuMSG += '<u><b>\tCopia de seguridad</b></u>\n';
-    menuMSG += ' ◦ <b>Importar</b>: Importar seteos de configuración desde una copia de seguridad\n';
-    menuMSG += ' ◦ <b>Exportar</b>: Exportar seteos de configuración hacia una copia de seguridad\n';
-    menuMSG += '<u><b>\tContraseña de acceso</b></u>\n';
-    menuMSG += '  \tCambiar la constraseña para acceder a la aplicación\n';
-    ctx.replyWithHTML(menuMSG).then(() => 
+    var found = imgOptions.find(function(el) {
+        return el.chatid === ctx.from.id;
+      });    
+    if (found)
     {
-        return ShowMenu(ctx)
-    });
+        ctx.replyWithPhoto({source: './public/config_general.png'} , {caption: 'Menú: Configuración,  Sección: General'}).then(() => { return MSG(ctx)} );
+    }
+    else
+    {
+        MSG(ctx);
+    }
+
+    function MSG(ctx){
+        let menuMSG = '►<strong>General</strong>\n';
+        menuMSG += '<u><b>\tCopia de seguridad</b></u>\n';
+        menuMSG += ' ◦ <b>Importar</b>: Importar seteos de configuración desde una copia de seguridad\n';
+        menuMSG += ' ◦ <b>Exportar</b>: Exportar seteos de configuración hacia una copia de seguridad\n';
+        menuMSG += '<u><b>\tContraseña de acceso</b></u>\n';
+        menuMSG += '  \tCambiar la constraseña para acceder a la aplicación\n';
+        ctx.replyWithHTML(menuMSG).then(() => 
+        {
+            return ShowMenu(ctx)
+        });
+    }
 }
 function ConfigInterface(ctx)
 {
@@ -98,10 +115,5 @@ function ShowMenu(ctx)
         }
     });
 }
-
-
-
-
-
 
 module.exports = {ShowMenu, Init}

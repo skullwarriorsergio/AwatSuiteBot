@@ -1,24 +1,27 @@
 //-----------Requires-----------
 const { Telegraf } = require('telegraf');
+var DeleteMSG = require('../deletemsg');
+var imgOptions =[];
 
 //-----------Code-----------
-function Init(bot,backfunction)
+function Init(bot,backfunction, options)
 {
+    imgOptions = options
     //this.bot = bot;
     bot.action('import_filefilter', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         FileFilter(ctx);
     });
     bot.action('import_selectprofile', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         SelectProfile(ctx);
     });
     bot.action('import_defineprofile', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         DefineProfile(ctx);
     });
     bot.action('import_back', ctx => {
-        ctx.deleteMessage();
+        DeleteMSG(ctx);
         let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';
         menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
         backfunction(ctx,menuMSG)

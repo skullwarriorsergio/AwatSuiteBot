@@ -1,11 +1,13 @@
 //-----------Requires-----------
 const { Telegraf } = require('telegraf');
+var imgOptions =[];
 //var bot=null;
 
 //-----------Code-----------
-function Init(bot)
+function Init(bot, options)
 {
     //this.bot = bot;
+    imgOptions = options;
 }
 function ShowMenu(ctx)
 {    
