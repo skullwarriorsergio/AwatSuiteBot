@@ -4,6 +4,7 @@ const { Telegraf, Markup } = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const fs = require('fs');
 var bot = null;
+var options = [];
 if (process.env['proxy'] == 'true')
 {
     bot = new Telegraf(process.env['token'], {
@@ -156,11 +157,34 @@ function MainManuButtons(ctx,menuMSG)
 }
 //-----Buttons-----
 bot.action('options', ctx => {
+    let showpics = false;
+    let menutext = "Mostrar imágenes de ejemplo";
+    if (options.some((opt) => opt.chatid === ctx.from.id))
+    {
+        showpics =  opt.showpics 
+    }
+    else
+    {
+        options.push(new {
+            chatid: ctx.from.id, 
+            showpics:false
+        });
+    }
+    if (showpics)
+    {
+        menutext = "Ocultar imágenes de ejemplo";
+    }
     ctx.replyWithHTML('Opciones del asistente').then(() =>
     {
         return ctx.replyWithHTML('', {
             reply_markup: {
                 inline_keyboard: [
+                    [
+                        {
+                            text: menutext,
+                            callback_data: 'tooglePictures'
+                        }
+                    ],
                     [
                         {
                             text: "\u{26D1} Iniciar asistente",
@@ -174,6 +198,13 @@ bot.action('options', ctx => {
             ]}
         })
     });;
+});
+bot.action('tooglePictures', ctx => {
+    ctx.deleteMessage();
+    var found = object.main.filter(function(el) {
+        return el.chatid === ctx.from.id;
+      });
+    menu.ShowMenu(bot, ctx)
 });
 bot.action('showhelp', ctx => {
     menu.ShowMenu(bot, ctx)
