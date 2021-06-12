@@ -23,7 +23,8 @@ menu.Init(bot);
 //-----Contact Info-----
 const contactInfoExtra = Markup.inlineKeyboard([
     [
-        Markup.button.url('\u{1F4AC} Grupo de Telegram', 'https://t.me/awatsuite')
+        Markup.button.url('\u{1F4AC} Grupo de Telegram', 'https://t.me/awatsuite'),
+        Markup.button.url('\u{1F4AC} Correo', 'mailto:awatsuite@gmail.com')
     ],
     [
         Markup.button.url('\u{1F30E} Facebook', 'https://www.facebook.com/awatsuite/'),
@@ -34,12 +35,12 @@ const contactInfoExtra = Markup.inlineKeyboard([
         Markup.button.url('\u{1F5C4} Mega', 'https://mega.nz/#F!VENU0QCL!SwEHRn4oZWSgHcNR-JpzPA')
     ],
     [
-        Markup.button.callback('\u{26D1} Iniciar asistente','showhelp')
+        Markup.button.callback('\u{26D1} Iniciar asistente','showhelp'),        
+        Markup.button.callback('\u{1F6E0} Opciones','options'),        
     ]
   ]);
 
 //-----------Code-----------
-
 bot.command('start', ctx => {      
     Welcome(ctx) ;   
 });
@@ -134,10 +135,16 @@ function MainManuButtons(ctx,menuMSG)
     bot.telegram.sendMessage(ctx.from.id,menuMSG, {
         reply_markup: {
             inline_keyboard: [
-                [                    
+                [
                     {
                         text: "\u{26D1} Iniciar asistente",
                         callback_data: 'showhelp'
+                    }
+                ],
+                [                                      
+                    {
+                        text: "\u{26D1} Opciones",
+                        callback_data: 'options'
                     },
                     {
                         text: "\u{1F4DE} Contacto",
@@ -147,8 +154,27 @@ function MainManuButtons(ctx,menuMSG)
         ]}
     })
 }
-
-//-----others-----
+//-----Buttons-----
+bot.action('options', ctx => {
+    ctx.replyWithHTML('Opciones del asistente').then(() =>
+    {
+        return bot.telegram.sendMessage(ctx.from.id,menuMSG, {
+            reply_markup: {
+                inline_keyboard: [
+                    [
+                        {
+                            text: "\u{26D1} Iniciar asistente",
+                            callback_data: 'showhelp'
+                        },
+                        {
+                            text: "\u{1F4DE} Contacto",
+                            callback_data: 'contact'
+                        }
+                    ]
+            ]}
+        })
+    });;
+});
 bot.action('showhelp', ctx => {
     menu.ShowMenu(bot, ctx)
 });
