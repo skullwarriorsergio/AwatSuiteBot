@@ -56,23 +56,29 @@ function Init(bot, options)
             , './public/traffic.png'
             , 'Menú: Datos. (Tráfico Proxy/Web)' 
         );
-
-
-        
     });
 
     bot.action('extras', ctx => { // \u{1F6D2} 
         DeleteMSG(ctx);
-        let menuMSG = '►<strong>Extras</strong>\n';
-        menuMSG += '  \tEsta opción esta enfocada a funcionalidades extras solicitadas por usuarios.\n';
-        menuMSG += '  \tAqui se cuenta con un analizador de archivos de correo(.eml  .msg y archivos de datos de Outlook[.pst]) a través del cual se puede acceder a los correos enviados y recibidos contenidos en los mismos.\n';
+        PicMSG(ctx
+            ,imgOptions
+            , () => {
+                let menuMSG = '►<strong>Extras</strong>\n';
+                menuMSG += '  \tEsta opción esta enfocada a funcionalidades extras solicitadas por usuarios.\n';
+                menuMSG += '  \tAqui se cuenta con un analizador de archivos de correo(.eml  .msg y archivos de datos de Outlook[.pst]) a través del cual se puede acceder a los correos enviados y recibidos contenidos en los mismos.\n';
 
-        ctx.replyWithHTML(menuMSG).then(() => 
-        {
-            let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
-            menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
-            return ShowTopicsMenu(ctx, menuMSG);
-        });
+                ctx.replyWithHTML(menuMSG).then(() => 
+                {
+                    let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
+                    menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
+                    return ShowTopicsMenu(ctx, menuMSG);
+                });
+            }
+            , './public/extrafunctions.png'
+            , 'Menú: Extras.' 
+        );
+
+        
     });
 
     bot.action('config', ctx => {
