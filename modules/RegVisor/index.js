@@ -2,6 +2,7 @@
 var configOption = require('./config');
 var importOption = require('./import');
 var DeleteMSG = require('../deletemsg');
+var PicMSG = require('../msgPicture');
 const { Telegraf } = require('telegraf');
 var imgOptions =[];
 //var bot=null;
@@ -38,16 +39,26 @@ function Init(bot, options)
 
     bot.action('filter', ctx => { // \u{2049} 
         DeleteMSG(ctx);
-        let menuMSG = '►<strong>Mostrar datos</strong>\n';
-        menuMSG += '  \tEn esta sección se muestran los datos importados con el nivel de detalle definido según el perfil seleccionado.\n';
-        menuMSG += '  \tAqui se puede acceder a distintas funcionalidades de filtrado y generar resúmenes parciales o específicos a un campo o valor.\n';
+        PicMSG(ctx
+            ,imgOptions
+            , () => {
+                let menuMSG = '►<strong>Mostrar datos</strong>\n';
+                menuMSG += '  \tEn esta sección se muestran los datos importados con el nivel de detalle definido según el perfil seleccionado.\n';
+                menuMSG += '  \tAqui se puede acceder a distintas funcionalidades de filtrado y generar resúmenes parciales o específicos a un campo o valor.\n';
 
-        ctx.replyWithHTML(menuMSG).then(() => 
-        {
-            let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
-            menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
-            return ShowTopicsMenu(ctx, menuMSG);
-        });
+                ctx.replyWithHTML(menuMSG).then(() => 
+                {
+                    let menuMSG = '<strong>RegVisor</strong>  (<i>Sistema para el análisis de trazas de los servidores.</i>)\n';            
+                    menuMSG += 'A continuación selecciona el tópico sobre el cual deseas recibir ayuda';
+                    return ShowTopicsMenu(ctx, menuMSG);
+                });
+            }
+            , './public/traffic.png'
+            , 'Menú: Datos. (Tráfico Proxy/Web)' 
+        );
+
+
+        
     });
 
     bot.action('extras', ctx => { // \u{1F6D2} 
