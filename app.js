@@ -15,6 +15,7 @@ if (process.env["proxy"] == "true") {
   bot = new Telegraf(process.env["token"]);
 }
 var donate = require("./modules/donate/index");
+var donate2 = require("./modules/donate/index2");
 var menu = require("./modules/index");
 var DeleteMSG = require("./modules/deletemsg");
 const deletemsg = require("./modules/deletemsg");
@@ -63,7 +64,8 @@ bot.command("start", (ctx) => {
   Welcome(ctx);
 });
 bot.command("hello", (ctx) => {
-  Welcome(ctx);
+  donate2(bot);
+  //Welcome(ctx);
 });
 bot.command("hola", (ctx) => {
   Welcome(ctx);
