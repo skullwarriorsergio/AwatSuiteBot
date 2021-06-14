@@ -16,6 +16,7 @@ if (process.env["proxy"] == "true") {
 }
 var menu = require("./modules/index");
 var DeleteMSG = require("./modules/deletemsg");
+const deletemsg = require("./modules/deletemsg");
 bot.telegram.getMe().then((botInfo) => {
   bot.options.username = botInfo.username;
 });
@@ -62,6 +63,9 @@ bot.command("hello", (ctx) => {
 bot.command("hola", (ctx) => {
   Welcome(ctx);
 });
+/**
+ * welcome message
+ */
 function Welcome(ctx) {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
@@ -141,10 +145,18 @@ bot.hears("awatsuite", (ctx) => {
   MainMenu(ctx);
 });
 //-----functions-----
+
+/**
+ * Show main text menu.
+ */
 function MainMenu(ctx) {
   let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Recuerda habilitar las imágenes de ejemplo para recibir capturas de pantalla de la aplicación.\n\nQue deseas hacer?.`;
   MainMenuButtons(ctx, privateMSG);
 }
+
+/**
+ * Main menu buttons
+ */
 function MainMenuButtons(ctx, menuMSG) {
   bot.telegram.sendMessage(ctx.from.id, menuMSG, {
     reply_markup: {
