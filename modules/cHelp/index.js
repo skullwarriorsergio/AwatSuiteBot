@@ -11,9 +11,9 @@ function Init(bot, options)
 }
 function ShowMenu(ctx)
 {    
-    ctx.deleteMessage();
+    //ctx.deleteMessage();
     ctx.replyWithPhoto({source: './public/chelp.jpg'}).then(()=>{
-        ctx.reply('En desarrollo');
+        return ctx.reply('Esta sección se encuentra en desarrollo. Disculpe las molestias ocacionadas.');
     });
 }
 
