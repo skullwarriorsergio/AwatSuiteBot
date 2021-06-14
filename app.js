@@ -148,7 +148,7 @@ bot.hears('awatsuite', ctx => {
 //-----functions-----
 function MainMenu(ctx)
 {    
-    let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.\n[i]Habilita las imagenes de ejemplo para recibir capturas de pantalla de la aplicación.[/i]`;
+    let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.\n\nHabilita las imagenes de ejemplo para recibir capturas de pantalla de la aplicación.`;
     MainMenuButtons(ctx,privateMSG);
 }
 function MainMenuButtons(ctx,menuMSG)
