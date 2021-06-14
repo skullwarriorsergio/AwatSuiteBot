@@ -51,9 +51,10 @@ const contactInfoExtra = Markup.inlineKeyboard([
       "https://mega.nz/#F!VENU0QCL!SwEHRn4oZWSgHcNR-JpzPA"
     ),
   ],
+  [Markup.button.callback("\u{26D1} Iniciar asistente", "showhelp")],
   [
-    Markup.button.callback("\u{26D1} Iniciar asistente", "showhelp"),
     Markup.button.callback("\u{1F6E0} Opciones", "options"),
+    Markup.button.callback("Donar", "donate"),
   ],
 ]);
 
@@ -251,7 +252,7 @@ bot.action("showhelp", (ctx) => {
   menu.ShowMenu(bot, ctx);
 });
 bot.action("donate", (ctx) => {
-  menu.ShowMenu(bot, ctx);
+  donate.ShowMenu(bot, ctx);
 });
 bot.action("contact", (ctx) => {
   ctx.deleteMessage();

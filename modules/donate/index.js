@@ -1,8 +1,8 @@
-var DeleteMSG = require("./deletemsg");
+var DeleteMSG = require("../deletemsg");
 const { Telegraf } = require("telegraf");
 
 //-----------Code-----------
-function Init(bot, options, backfunction) {
+function Init(bot, backfunction) {
   bot.action("btc", (ctx) => {
     ctx.replyWithHTML("Bitcoin: 3HduNqT7SVhQ8XhjiYc4f1vm3z6BRAfEK1");
   });
@@ -19,7 +19,7 @@ function Init(bot, options, backfunction) {
  */
 function ShowMenu(bot, ctx) {
   DeleteMSG(ctx);
-  let menuMSG = `Selecciona el método de donación deseado`;
+  let menuMSG = `Muchas gracias por apoyarnos\nSeleccione el método de donación deseado`;
   ctx.replyWithHTML(menuMSG, {
     reply_markup: {
       inline_keyboard: [
