@@ -40,7 +40,8 @@ function Init(bot, options)
                 });
             }
             , './public/report.gif'
-            , 'Menú: Reporte. (Tráfico Proxy/Web)' 
+            , 'Menú: Reporte. (Tráfico Proxy/Web)'
+            , true
         );
         
     });
