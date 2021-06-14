@@ -1,3 +1,4 @@
+
 var DeleteMSG = require("../deletemsg");
 const { Telegraf, Markup } = require("telegraf");
 
@@ -17,7 +18,7 @@ function Init(bot, backfunction) {
 /**
  * Show apps menu.
  */
-function ShowMenu(bot, ctx) {
+function ShowMenu(ctx) {
   DeleteMSG(ctx);
   let menuMSG = `Muchas gracias por apoyarnos\nSeleccione el método de donación deseado`;
   ctx.replyWithHTML(menuMSG, {

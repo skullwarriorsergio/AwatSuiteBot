@@ -22,7 +22,7 @@ function Init(bot, options) {
 /**
  * Show apps menu.
  */
-function ShowMenu(bot, ctx) {
+function ShowMenu(ctx) {
   DeleteMSG(ctx);
   let menuMSG = `Entendido, ahora selecciona la aplicación de la suite para la cual deseas obtener ayuda`;
   ctx.replyWithHTML(menuMSG, {
