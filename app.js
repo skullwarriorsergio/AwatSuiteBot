@@ -16,7 +16,7 @@ else
 {
     bot = new Telegraf(process.env['token']);
 }
-var menu = require('./modules/menu');
+var menu = require('./modules/index');
 var DeleteMSG = require('./modules/deletemsg');
 bot.telegram.getMe().then((botInfo) => {
     bot.options.username = botInfo.username
@@ -148,7 +148,7 @@ bot.hears('awatsuite', ctx => {
 //-----functions-----
 function MainMenu(ctx)
 {    
-    let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.`;
+    let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Que deseas hacer?.\n[i]Habilita las imagenes de ejemplo para recibir capturas de pantalla de la aplicación.[/i]`;
     MainMenuButtons(ctx,privateMSG);
 }
 function MainMenuButtons(ctx,menuMSG)
