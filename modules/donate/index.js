@@ -6,7 +6,7 @@ function Init(bot, backfunction) {
   bot.action("btc", (ctx) => {
     ctx.replyWithHTML("Bitcoin: 3HduNqT7SVhQ8XhjiYc4f1vm3z6BRAfEK1",Markup.inlineKeyboard([
       [
-        Markup.button.url("\u{1F4AC} Grupo de Telegram", "https://t.me/awatsuite"),
+        Markup.button.url("Transferencia de saldo", "tel:+5358279555"),
       ],]));
   });
   bot.action("ethereum", (ctx) => {
