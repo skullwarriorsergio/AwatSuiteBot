@@ -4,10 +4,7 @@ const { Telegraf, Markup } = require("telegraf");
 //-----------Code-----------
 function Init(bot, backfunction) {
   bot.action("btc", (ctx) => {
-    ctx.replyWithHTML("Bitcoin: 3HduNqT7SVhQ8XhjiYc4f1vm3z6BRAfEK1",Markup.inlineKeyboard([
-      [
-        Markup.button.url("Transferencia de saldo", "tel:+5358279555"),
-      ],]));
+    ctx.replyWithHTML("Bitcoin: 3HduNqT7SVhQ8XhjiYc4f1vm3z6BRAfEK1");
   });
   bot.action("ethereum", (ctx) => {
     ctx.replyWithHTML("Ethereum: 0xfcf8dc944ec9e22f24de9f5ea9eea819fac94a35");
