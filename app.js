@@ -14,6 +14,7 @@ if (process.env["proxy"] == "true") {
 } else {
   bot = new Telegraf(process.env["token"]);
 }
+var donate = require("./modules/donate/index");
 var menu = require("./modules/index");
 var DeleteMSG = require("./modules/deletemsg");
 const deletemsg = require("./modules/deletemsg");
@@ -21,6 +22,9 @@ bot.telegram.getMe().then((botInfo) => {
   bot.options.username = botInfo.username;
 });
 menu.Init(bot, options);
+donate.Init(bot, (ctx) => {
+  MainMenu(ctx);
+});
 //-----Contact Info-----
 const contactInfoExtra = Markup.inlineKeyboard([
   [
@@ -176,6 +180,10 @@ function MainMenuButtons(ctx, menuMSG) {
             text: "\u{1F4DE} Contacto",
             callback_data: "contact",
           },
+          {
+            text: "Donar",
+            callback_data: "donate",
+          },
         ],
       ],
     },
@@ -211,12 +219,16 @@ bot.action("options", (ctx) => {
         ],
         [
           {
-            text: "\u{26D1} Iniciar asistente",
+            text: "\u{26D1} Asistente",
             callback_data: "showhelp",
           },
           {
             text: "\u{1F4DE} Contacto",
             callback_data: "contact",
+          },
+          {
+            text: "Donar",
+            callback_data: "donate",
           },
         ],
       ],
@@ -236,6 +248,9 @@ bot.action("tooglePictures", (ctx) => {
   );
 });
 bot.action("showhelp", (ctx) => {
+  menu.ShowMenu(bot, ctx);
+});
+bot.action("donate", (ctx) => {
   menu.ShowMenu(bot, ctx);
 });
 bot.action("contact", (ctx) => {

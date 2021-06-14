@@ -7,8 +7,6 @@ const { Telegraf, Markup } = require("telegraf");
 
 //-----------Code-----------
 function Init(bot, options) {
-  this.options = options;
-  //this.bot = bot;
   regvisor.Init(bot, options);
   chelp.Init(bot, options);
 
