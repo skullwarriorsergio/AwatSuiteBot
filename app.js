@@ -133,7 +133,15 @@ bot.command("getlastzip", (ctx) => {
 });
 //Start report's wizard
 bot.command("report", (ctx) => {
-  wizard.ShowReportWizard(ctx);
+  if (ctx.chat.id != ctx.from.id) {
+    ctx.reply(
+      "Te he enviado un mensaje privado para atender tu solicitud de reporte o sugerencia."
+    );
+    bot.telegram.sendMessage(
+      ctx.from.id,
+      "Ahora podemos conversar con tranquilidad.\nPor favor teclea /report para iniciar el generador de reportes o sugerencias."
+    );
+  } else wizard.ShowReportWizard(ctx);
 });
 //Show bot's help
 bot.command("help", (ctx) => {
