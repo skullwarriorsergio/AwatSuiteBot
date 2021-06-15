@@ -135,6 +135,14 @@ bot.command("getlastzip", (ctx) => {
 bot.command("report", (ctx) => {
   wizard.ShowReportWizard(ctx);
 });
+//Show bot's help
+bot.command("help", (ctx) => {
+  BotHelp(ctx);
+});
+//Show bot's help
+bot.command("ayuda", (ctx) => {
+  BotHelp(ctx);
+});
 //Admin's command - Generar compactado y eliminar archivos de reportes
 bot.command("getreports", (ctx) => {
   if (ctx.from.id === 1351572572) {
@@ -175,6 +183,12 @@ bot.command("awatsuite", (ctx) => {
 });
 //-----hears-----
 //Show bot's main menu
+bot.hears("ayuda", (ctx) => {
+  if (ctx.chat.id === ctx.from.id) {
+    MainMenu(ctx);
+  }
+});
+//Show bot's main menu
 bot.hears("Hola", (ctx) => {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
@@ -190,6 +204,18 @@ bot.hears("Hello", (ctx) => {
 bot.hears("hola", (ctx) => {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
+  }
+});
+//Show bot's main menu
+bot.hears("ayuda", (ctx) => {
+  if (ctx.chat.id === ctx.from.id) {
+    BotHelp(ctx);
+  }
+});
+//Show bot's main menu
+bot.hears("Ayuda", (ctx) => {
+  if (ctx.chat.id === ctx.from.id) {
+    BotHelp(ctx);
   }
 });
 //Show bot's main menu
@@ -222,6 +248,14 @@ bot.hears("awatsuite", (ctx) => {
 function MainMenu(ctx) {
   let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Recuerda habilitar las imágenes de ejemplo para recibir capturas de pantalla de la aplicación.\n\nQue deseas hacer?.`;
   MainMenuButtons(ctx, privateMSG);
+}
+/**
+ * Show help text
+ */
+function BotHelp(ctx) {
+  ctx.replyWithHTML(
+    "Soy el asistente de ayuda y soporte para AwatSuite.\nPara iniciar puedes utilizar los comandos /start /hola /awatsuite. Si quieres acceder rapidamente a otras opciones como:m Habilitar/deshabilitar imagenes de ejemplos utiliza /img\n Realizar un reporte o sugerencia /report"
+  );
 }
 
 /**
@@ -323,7 +357,7 @@ bot.action("tooglePictures", (ctx) => {
   );
 });
 bot.action("showhelp", (ctx) => {
-  menu.ShowMenu(ctx);
+  BotHelp(ctx);
 });
 bot.action("donate", (ctx) => {
   donate.ShowMenu(ctx);
