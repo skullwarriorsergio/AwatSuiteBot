@@ -18,7 +18,10 @@
 .env.test.local
 .env.production.local
 .env
+
+#personal
 notas
+/reports
 
 
 npm-debug.log*

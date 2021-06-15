@@ -15,14 +15,14 @@ if (process.env["proxy"] == "true") {
   bot = new Telegraf(process.env["token"]);
 }
 var donate = require("./modules/donate/index");
-var wizard = require("./wizards");
+var wizard = require("./modules/wizards");
 var menu = require("./modules/index");
 var DeleteMSG = require("./modules/deletemsg");
 const deletemsg = require("./modules/deletemsg");
 bot.telegram.getMe().then((botInfo) => {
   bot.options.username = botInfo.username;
 });
-wizard.Init(bot);
+wizard.Init(bot, MainMenuButtons);
 menu.Init(bot, options);
 donate.Init(bot, (ctx) => {
   MainMenu(ctx);
@@ -66,7 +66,7 @@ const contactInfoExtra = Markup.inlineKeyboard([
 bot.command("start", (ctx) => {
   Welcome(ctx);
 });
-bot.command("hello", (ctx) => {  
+bot.command("hello", (ctx) => {
   Welcome(ctx);
 });
 bot.command("hola", (ctx) => {
@@ -110,6 +110,9 @@ bot.command("quit", (ctx) => {
   try {
     ctx.leaveChat();
   } catch {}
+});
+bot.command("report", (ctx) => {
+  wizard.ShowReportWizard(ctx);
 });
 bot.command("awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
@@ -201,6 +204,9 @@ function MainMenuButtons(ctx, menuMSG) {
   });
 }
 //-----Buttons-----
+bot.action("reportwizard", (ctx) => {
+  wizard.ShowReportWizard(ctx);
+});
 bot.action("options", (ctx) => {
   DeleteMSG(ctx);
   let showpics = false;
