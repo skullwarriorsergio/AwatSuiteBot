@@ -41,7 +41,8 @@ const reportWizard = new Scenes.WizardScene(
       JSON.stringify(ctx.wizard.state.report),
       (err) => {
         if (err) {
-          console.error("IO File error");
+          console.error(err);
+          ctx.replyWithHTML(err);
         }
       }
     );
