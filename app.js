@@ -83,7 +83,10 @@ function Welcome(ctx) {
     var msg = `Hola <strong>${ctx.from.first_name}</strong>!\n`;
     msg += "Soy bot de ayuda de la <strong>Suite Awat</strong>.\n";
     msg += "Comandos disponibles:\n";
-    msg += " /awatsuite";
+    msg += " /awatsuite\t\t  iniciar el asistente.";
+    msg += " /report\t\t  enviar un reporte de problemas o sugerencias.";
+    msg += " /img\t\t  habilita o deshabilita las imágenes de ejemplo.";
+    msg += " /help\t\t  información de ayuda.";
     ctx.replyWithHTML(msg);
   }
 }
