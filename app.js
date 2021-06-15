@@ -139,7 +139,7 @@ bot.command("report", (ctx) => {
     );
     bot.telegram.sendMessage(
       ctx.from.id,
-      "Ahora podemos conversar con tranquilidad.\nPor favor teclea /report para iniciar el generador de reportes o sugerencias."
+      "Ahora podemos conversar con tranquilidad.\nPor favor introduzca /report para iniciar el generador de reportes o sugerencias."
     );
   } else wizard.ShowReportWizard(ctx);
 });
