@@ -3,7 +3,6 @@ var regvisor = require("./RegVisor/index");
 var chelp = require("./cHelp/index");
 var DeleteMSG = require("./deletemsg");
 const { Telegraf, Markup } = require("telegraf");
-//var bot=null;
 
 //-----------Code-----------
 function Init(bot, options) {
