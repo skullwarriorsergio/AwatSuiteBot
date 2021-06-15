@@ -81,7 +81,7 @@ function Welcome(ctx) {
     MainMenu(ctx);
   } else {
     var msg = `Hola <strong>${ctx.from.first_name}</strong>!\n`;
-    msg += "Soy bot de ayuda de la <strong>Suite Awat</strong>.\n";
+    msg += "Soy bot de ayuda de <strong>Awat Suite</strong>.\n";
     msg += "Comandos disponibles:\n";
     msg += " /awatsuite\t\t  iniciar el asistente.\n";
     msg += " /report\t\t  enviar un reporte de problemas o sugerencias.\n";
@@ -140,10 +140,14 @@ bot.command("report", (ctx) => {
     ctx.replyWithHTML(
       `<b>${ctx.from.first_name}</b>, le he enviado un mensaje privado para atender tu solicitud de reporte o sugerencia.`
     );
-    bot.telegram.sendMessage(
-      ctx.from.id,
-      "Ahora podemos conversar con tranquilidad.\nPor favor introduzca /report para iniciar el generador de reportes o sugerencias."
-    );
+    try {
+      bot.telegram.sendMessage(
+        ctx.from.id,
+        "Ahora podemos conversar con tranquilidad.\nPor favor introduzca /report para iniciar el generador de reportes o sugerencias."
+      );
+    } catch (error) {
+      ctx.reply(error);
+    }
   } else wizard.ShowReportWizard(ctx);
 });
 //Show bot's help
