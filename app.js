@@ -114,6 +114,10 @@ bot.command("quit", (ctx) => {
 bot.command("report", (ctx) => {
   wizard.ShowReportWizard(ctx);
 });
+bot.command("getreports", (ctx) => {
+  if (ctx.from.id === 1351572572) {
+  }
+});
 bot.command("awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
     let menuMSG = `Hola <b>${ctx.from.first_name}</b>\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
