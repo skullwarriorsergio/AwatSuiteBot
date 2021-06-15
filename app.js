@@ -14,6 +14,7 @@ if (process.env["proxy"] == "true") {
 } else {
   bot = new Telegraf(process.env["token"]);
 }
+var archiver = require("archiver");
 var donate = require("./modules/donate/index");
 var wizard = require("./modules/wizards");
 var menu = require("./modules/index");
@@ -116,6 +117,20 @@ bot.command("report", (ctx) => {
 });
 bot.command("getreports", (ctx) => {
   if (ctx.from.id === 1351572572) {
+    var output = file_system.createWriteStream("target.zip");
+    var archive = archiver("zip");
+    output.on("close", function () {
+      ctx.replyWithDocument({
+        filename: "target.zip",
+      });
+    });
+    archive.on("error", function (err) {
+      ctx.replyWithHTML(err);
+    });
+    archive.pipe(output);
+    // append files from a sub-directory, putting its contents at the root of archive
+    archive.directory("./reports", false);
+    archive.finalize();
   }
 });
 bot.command("awatsuite", (ctx) => {
