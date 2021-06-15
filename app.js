@@ -366,7 +366,7 @@ bot.action("tooglePictures", (ctx) => {
   );
 });
 bot.action("showhelp", (ctx) => {
-  BotHelp(ctx);
+  menu.ShowMenu(ctx);
 });
 bot.action("donate", (ctx) => {
   donate.ShowMenu(ctx);
