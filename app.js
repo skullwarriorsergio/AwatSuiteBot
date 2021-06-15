@@ -134,8 +134,8 @@ bot.command("getlastzip", (ctx) => {
 //Start report's wizard
 bot.command("report", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
-    ctx.reply(
-      "Te he enviado un mensaje privado para atender tu solicitud de reporte o sugerencia."
+    ctx.replyWithHTML(
+      `<b>${ctx.from.first_name}</b>, le he enviado un mensaje privado para atender tu solicitud de reporte o sugerencia.`
     );
     bot.telegram.sendMessage(
       ctx.from.id,
