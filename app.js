@@ -143,6 +143,7 @@ bot.command("help", (ctx) => {
 bot.command("ayuda", (ctx) => {
   BotHelp(ctx);
 });
+
 //Admin's command - Generar compactado y eliminar archivos de reportes
 bot.command("getreports", (ctx) => {
   if (ctx.from.id === 1351572572) {
