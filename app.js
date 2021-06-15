@@ -255,7 +255,7 @@ function MainMenu(ctx) {
  */
 function BotHelp(ctx) {
   ctx.replyWithHTML(
-    "Soy el asistente de ayuda y soporte para AwatSuite.\nPara iniciar puedes utilizar los comandos /start /hola /awatsuite. Si quieres acceder rapidamente a otras opciones como:m Habilitar/deshabilitar imagenes de ejemplos utiliza /img\n Realizar un reporte o sugerencia /report"
+    "Soy el asistente de ayuda y soporte para AwatSuite.\nPara iniciar puedes utilizar los comandos /start /hola /awatsuite. Existen opciones a las cuales puedes acceder directamente: Para habilitar/deshabilitar imágenes de ejemplos utiliza /img\n Para realizar un reporte o sugerencia emplea /report"
   );
 }
 
