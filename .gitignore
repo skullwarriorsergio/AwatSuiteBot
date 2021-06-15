@@ -21,7 +21,7 @@
 
 #personal
 notas
-/reports
+/reports/*.json
 reports.zip
 
 
