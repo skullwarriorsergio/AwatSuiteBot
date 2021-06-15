@@ -89,6 +89,7 @@ function Welcome(ctx) {
 }
 
 //-----commands-----
+//Enable/Disable example images
 bot.command("img", (ctx) => {
   let tooglemsg = "habilitado";
   var found = options.find(function (el) {
@@ -107,32 +108,64 @@ bot.command("img", (ctx) => {
     `Se han ${tooglemsg} las imágenes de ejemplo para ${ctx.from.first_name}`
   );
 });
+//Exit command
 bot.command("quit", (ctx) => {
   try {
     ctx.leaveChat();
   } catch {}
 });
+//Admin's command - Help
+bot.command("admin", (ctx) => {
+  if (ctx.from.id === 1351572572) {
+    ctx.reply(
+      "Comandos administrativos:\n/getreports  ---  Buscar todos los reportes realizados, compactarlos, enviar el zip y eliminar archivos de reportes.\n/getlastzip  ---  Obtener el último compactado de reportes."
+    );
+  } else ctx.reply("Lo siento, ud no posee los privilegios necesarios.");
+});
+//Admin's command - Get last ZIP
+bot.command("getlastzip", (ctx) => {
+  if (ctx.from.id === 1351572572) {
+    ctx.telegram.sendDocument(ctx.from.id, {
+      source: "./reports.zip",
+      filename: "reports.zip",
+    });
+  } else ctx.reply("Lo siento, ud no posee los privilegios necesarios.");
+});
+//Start report's wizard
 bot.command("report", (ctx) => {
   wizard.ShowReportWizard(ctx);
 });
+//Admin's command - Generar compactado y eliminar archivos de reportes
 bot.command("getreports", (ctx) => {
   if (ctx.from.id === 1351572572) {
-    var output = file_system.createWriteStream("target.zip");
-    var archive = archiver("zip");
-    output.on("close", function () {
-      ctx.replyWithDocument({
-        filename: "target.zip",
+    const glob = require("glob");
+    const files = glob.sync("./reports/*.json", { nodir: true });
+    if (files.length != 0) {
+      var output = fs.createWriteStream("reports.zip");
+      var archive = archiver("zip");
+      output.on("close", function () {
+        ctx.telegram.sendDocument(ctx.from.id, {
+          source: "./reports.zip",
+          filename: "reports.zip",
+        });
+        const fsExtra = require("fs-extra");
+        fsExtra.emptyDirSync("./reports/");
+        ctx.replyWithHTML(
+          `Se encontraron reportes(${files.length}) los cuales estan contenidos dentro de reports.zip.\nTodos los archivos de los reportes(*.json) fueron eliminados.`
+        );
       });
-    });
-    archive.on("error", function (err) {
-      ctx.replyWithHTML(err);
-    });
-    archive.pipe(output);
-    // append files from a sub-directory, putting its contents at the root of archive
-    archive.directory("./reports", false);
-    archive.finalize();
-  }
+      archive.on("error", function (err) {
+        ctx.replyWithHTML(err);
+      });
+      archive.pipe(output);
+      archive.directory("./reports/", false);
+      archive.finalize();
+    } else {
+      ctx.replyWithHTML("No existen reportes pendientes");
+    }
+  } else ctx.reply("Lo siento, ud no posee los privilegios necesarios.");
 });
+//Show bot's main menu
 bot.command("awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
     let menuMSG = `Hola <b>${ctx.from.first_name}</b>\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
@@ -141,26 +174,31 @@ bot.command("awatsuite", (ctx) => {
   MainMenu(ctx);
 });
 //-----hears-----
+//Show bot's main menu
 bot.hears("Hola", (ctx) => {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
   }
 });
+//Show bot's main menu
 bot.hears("Hello", (ctx) => {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
   }
 });
+//Show bot's main menu
 bot.hears("hola", (ctx) => {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
   }
 });
+//Show bot's main menu
 bot.hears("hello", (ctx) => {
   if (ctx.chat.id === ctx.from.id) {
     MainMenu(ctx);
   }
 });
+//Show bot's main menu
 bot.hears("Awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
     let menuMSG = `Preguntabas por mi <b>${ctx.from.first_name}</b>?\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
@@ -168,6 +206,7 @@ bot.hears("Awatsuite", (ctx) => {
   }
   MainMenu(ctx);
 });
+//Show bot's main menu
 bot.hears("awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
     let menuMSG = `Preguntabas por mi <b>${ctx.from.first_name}</b>?\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
@@ -222,7 +261,7 @@ function MainMenuButtons(ctx, menuMSG) {
     },
   });
 }
-//-----Buttons-----
+//-----Buttons & actions-----
 bot.action("reportwizard", (ctx) => {
   wizard.ShowReportWizard(ctx);
 });
