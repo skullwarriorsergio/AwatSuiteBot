@@ -15,12 +15,14 @@ if (process.env["proxy"] == "true") {
   bot = new Telegraf(process.env["token"]);
 }
 var donate = require("./modules/donate/index");
+var wizard = require("./wizards");
 var menu = require("./modules/index");
 var DeleteMSG = require("./modules/deletemsg");
 const deletemsg = require("./modules/deletemsg");
 bot.telegram.getMe().then((botInfo) => {
   bot.options.username = botInfo.username;
 });
+wizard.Init(bot);
 menu.Init(bot, options);
 donate.Init(bot, (ctx) => {
   MainMenu(ctx);
@@ -57,6 +59,7 @@ const contactInfoExtra = Markup.inlineKeyboard([
     Markup.button.callback("\u{1F6E0} Opciones", "options"),
     Markup.button.callback("Donar", "donate"),
   ],
+  [Markup.button.callback("Reportar problema o sugerencia", "reportwizard")],
 ]);
 
 //-----------Code-----------
@@ -185,6 +188,12 @@ function MainMenuButtons(ctx, menuMSG) {
           {
             text: "Donar",
             callback_data: "donate",
+          },
+        ],
+        [
+          {
+            text: "Reportar problema o sugerencia",
+            callback_data: "reportwizard",
           },
         ],
       ],
