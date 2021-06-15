@@ -1,4 +1,5 @@
 const { Scenes, session } = require("telegraf");
+const fs = require("fs");
 var botObject;
 var reportCallBack;
 
@@ -36,13 +37,15 @@ const reportWizard = new Scenes.WizardScene(
     }
     ctx.wizard.state.report.details = ctx.message.text;
     let reportID = `${ctx.from.id}-${Date.now()}`;
-    require("fs").writeFile(
+    fs.writeFile(
       `./reports/${reportID}.json`,
       JSON.stringify(ctx.wizard.state.report),
       (err) => {
         if (err) {
           console.error(err);
-          ctx.replyWithHTML(err);
+          ctx.replyWithHTML(
+            "Ha ocurrido un error al generar el archivo del reporte."
+          );
         }
       }
     );
@@ -64,6 +67,10 @@ function Init(bot, callback) {
   bot.use(stage.middleware());
   botObject = bot;
   reportCallBack = callback;
+  var dir = "./reports";
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
 }
 
 function ShowReportWizard(ctx) {
