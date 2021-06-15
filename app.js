@@ -137,17 +137,17 @@ bot.command("getlastzip", (ctx) => {
 //Start report's wizard
 bot.command("report", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
-    ctx.replyWithHTML(
-      `<b>${ctx.from.first_name}</b>, le he enviado un mensaje privado para atender tu solicitud de reporte o sugerencia.`
-    );
-    try {
-      bot.telegram.sendMessage(
+    console.log(ctx.chat.id);
+    return bot.telegram
+      .sendMessage(
         ctx.from.id,
         "Ahora podemos conversar con tranquilidad.\nPor favor introduzca /report para iniciar el generador de reportes o sugerencias."
-      );
-    } catch (error) {
-      ctx.reply(error);
-    }
+      )
+      .then(() => {
+        ctx.replyWithHTML(
+          `<b>${ctx.from.first_name}</b>, le he enviado un mensaje privado para atender tu solicitud de reporte o sugerencia.`
+        );
+      });
   } else wizard.ShowReportWizard(ctx);
 });
 //Show bot's help
@@ -157,6 +157,18 @@ bot.command("help", (ctx) => {
 //Show bot's help
 bot.command("ayuda", (ctx) => {
   BotHelp(ctx);
+});
+bot.catch((err) => {
+  console.log("bot error: ", err);
+  if (
+    err.code === 403 &&
+    err.description.includes("bot was blocked by the user")
+  ) {
+    bot.telegram.sendMessage(
+      -1001477824552,
+      "Oh oh! No me ha sido posible enviarte un mensaje privado.\n Podrías revisar tus ajustes de Seguridad y Privacidad? pues al parecer me encuentro en la lista de bloqueo.\nAdicionalmente puedes iniciar una conversación directa conmigo: @awatsuitebot"
+    );
+  }
 });
 
 //Admin's command - Generar compactado y eliminar archivos de reportes
@@ -192,10 +204,12 @@ bot.command("getreports", (ctx) => {
 //Show bot's main menu
 bot.command("awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
-    let menuMSG = `Hola <b>${ctx.from.first_name}</b>\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
-    ctx.replyWithHTML(menuMSG);
+    return MainMenu(ctx).then(() => {
+      let menuMSG = `Hola <b>${ctx.from.first_name}</b>\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
+      ctx.replyWithHTML(menuMSG);
+    });
   }
-  MainMenu(ctx);
+  return MainMenu(ctx);
 });
 //-----hears-----
 //Show bot's main menu
@@ -243,16 +257,20 @@ bot.hears("hello", (ctx) => {
 //Show bot's main menu
 bot.hears("Awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
-    let menuMSG = `Preguntabas por mi <b>${ctx.from.first_name}</b>?\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
-    ctx.replyWithHTML(menuMSG);
+    return MainMenu(ctx).then(() => {
+      let menuMSG = `Preguntabas por mi <b>${ctx.from.first_name}</b>?\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
+      ctx.replyWithHTML(menuMSG);
+    });
   }
   MainMenu(ctx);
 });
 //Show bot's main menu
 bot.hears("awatsuite", (ctx) => {
   if (ctx.chat.id != ctx.from.id) {
-    let menuMSG = `Preguntabas por mi <b>${ctx.from.first_name}</b>?\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
-    ctx.replyWithHTML(menuMSG);
+    return MainMenu(ctx).then(() => {
+      let menuMSG = `Preguntabas por mi <b>${ctx.from.first_name}</b>?\nTe he enviado un mensaje privado para iniciar el asistente de ayuda.\nNos vemos allí.`;
+      ctx.replyWithHTML(menuMSG);
+    });
   }
   MainMenu(ctx);
 });
@@ -263,7 +281,7 @@ bot.hears("awatsuite", (ctx) => {
  */
 function MainMenu(ctx) {
   let privateMSG = `Bienvenido ${ctx.from.first_name}\nGracias por permitirme ayudarte. Recuerda habilitar las imágenes de ejemplo para recibir capturas de pantalla de la aplicación.\n\nQue deseas hacer?.`;
-  MainMenuButtons(ctx, privateMSG);
+  return MainMenuButtons(ctx, privateMSG);
 }
 /**
  * Show help text
@@ -278,7 +296,7 @@ function BotHelp(ctx) {
  * Main menu buttons
  */
 function MainMenuButtons(ctx, menuMSG) {
-  bot.telegram.sendMessage(ctx.from.id, menuMSG, {
+  return bot.telegram.sendMessage(ctx.from.id, menuMSG, {
     reply_markup: {
       inline_keyboard: [
         [
@@ -367,7 +385,7 @@ bot.action("tooglePictures", (ctx) => {
   });
   found.showpics = !found.showpics;
   let tooglemsg = found.showpics ? "habilitado" : "deshabilitado";
-  MainMenuButtons(
+  return MainMenuButtons(
     ctx,
     `Excelente! ${ctx.from.first_name} has ${tooglemsg} las imagenes de ejemplo.\n Que deseas hacer a continuación?`
   );
